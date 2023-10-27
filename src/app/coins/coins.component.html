@@ -1,0 +1,31 @@
+<div class="col sm-8">
+  <div class="form-group">
+    <label for="paperInputs3">Rechercher</label>
+    <input
+      class="input-block"
+      type="text"
+      id="paperInputs3"
+      [(ngModel)]="filter"
+    />
+  </div>
+</div>
+
+<div class="row">
+  <div *ngFor="let coin of coins | filterCoins : filter" class="col sm-3">
+    <div class="card" style="width: 20rem">
+      <div class="card-header">{{ coin.name | uppercase }}</div>
+      <div class="card-body">
+        <h4 class="card-title">{{ coin.symbol }}</h4>
+        <h5 class="card-subtitle">classement: {{ coin.rank }}</h5>
+        <p class="card-text">
+          Prix actuel {{ coin.priceUsd | currency : "EUR" : "" : "1.0-0" }}
+        </p>
+        <label class="paper-btn" for="modal-1" (click)="selectedCoin = coin"
+          >Voir</label
+        >
+      </div>
+      <div class="card-footer"><a href="{{ coin.explorer }}">Site</a></div>
+    </div>
+  </div>
+</div>
+<app-coins-modal [coin]="selectedCoin"></app-coins-modal>
